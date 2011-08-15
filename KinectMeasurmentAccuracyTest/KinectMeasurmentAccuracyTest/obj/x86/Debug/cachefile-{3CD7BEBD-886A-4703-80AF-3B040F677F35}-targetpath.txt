@@ -1,1 +1,3 @@
 Content\yellowDot.xnb
+Content\ball.xnb
+Content\box.xnb

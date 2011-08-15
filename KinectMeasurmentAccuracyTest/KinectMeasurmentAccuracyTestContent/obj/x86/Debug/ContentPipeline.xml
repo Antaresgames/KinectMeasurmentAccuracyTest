@@ -10,16 +10,56 @@
       <Output>c:\users\ewen\documents\visual studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\yellowDot.xnb</Output>
       <Time>2011-08-14T12:41:44.5317198+01:00</Time>
     </Item>
+    <Item>
+      <Source>ball.FBX</Source>
+      <Name>ball</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\ball.xnb</Output>
+      <Time>2011-08-14T13:20:38.6145449+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\ball_0.xml</Key>
+        <Value>2011-08-15T13:15:41.5249137+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>ball.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\ball_0.xml</Output>
+      <Time>2011-08-14T13:20:38.6145449+01:00</Time>
+    </Item>
+    <Item>
+      <Source>box.FBX</Source>
+      <Name>box</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\box.xnb</Output>
+      <Time>2011-08-15T14:01:06.7517877+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\box_0.xml</Key>
+        <Value>2011-08-15T14:01:21.5166322+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>box.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\box_0.xml</Output>
+      <Time>2011-08-15T14:01:06.7517877+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>c:\users\ewen\documents\visual studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTestContent\</RootDirectory>
-      <LoggerRootDirectory>c:\users\ewen\documents\visual studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\</LoggerRootDirectory>
-      <IntermediateDirectory>c:\users\ewen\documents\visual studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTestContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>c:\users\ewen\documents\visual studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTestContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTestContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

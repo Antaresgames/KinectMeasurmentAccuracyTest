@@ -21,9 +21,10 @@ namespace KinectMeasurmentAccuracyTest
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Kinect kinect;
-        Vector2[] redLinePoints;
+        Vector3[,] redLinePoints;
 
         Texture2D yellowDot;
+        Camera2 camera;
 
         KeyboardState prevState;
 
@@ -44,7 +45,7 @@ namespace KinectMeasurmentAccuracyTest
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            camera = new Camera2(this, Vector3.Zero, 1.0f);
             base.Initialize();
         }
 
@@ -90,8 +91,19 @@ namespace KinectMeasurmentAccuracyTest
             if (Keyboard.GetState().IsKeyDown(Keys.R))
                 kinect.CameraReset();
             if (Keyboard.GetState().IsKeyDown(Keys.C) && !Keyboard.GetState().Equals(prevState))
+            {
+                Components.Clear();
                 redLinePoints = kinect.Capture();
-
+                foreach (Vector3 point in redLinePoints)
+                {
+                    if (point.Y < 1700 && point.Y != 0)
+                    {
+                        camera.LookAt(point);
+                        Components.Add(new GameComponent1(this, point, camera));
+                    }
+                }
+            }
+            camera.Update(gameTime);
             // TODO: Add your update logic here
             prevState = Keyboard.GetState();
             base.Update(gameTime);
@@ -104,21 +116,13 @@ namespace KinectMeasurmentAccuracyTest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
             spriteBatch.Begin();
-            if (kinect.GetImage() != null)
+            if (kinect.GetImage() != null && kinect.GetLastDepth() == null)
             {
                 spriteBatch.Draw(kinect.GetImage(), new Microsoft.Xna.Framework.Rectangle(0, 0, 640, 480), Microsoft.Xna.Framework.Color.White);
                 spriteBatch.Draw(kinect.GetDepth(), new Microsoft.Xna.Framework.Rectangle(640, 0, 320, 240), Microsoft.Xna.Framework.Color.White);
-                if (kinect.GetLastDepth() != null)
-                {
-                    spriteBatch.Draw(kinect.GetLastDepth(), new Microsoft.Xna.Framework.Rectangle(640, 240, 320, 240), Microsoft.Xna.Framework.Color.White);
-                    spriteBatch.Draw(yellowDot, new Microsoft.Xna.Framework.Rectangle(0,480, 900, 480), Microsoft.Xna.Framework.Color.DarkSlateBlue);
-                    foreach (Vector2 point in redLinePoints)
-                    {
-                        spriteBatch.Draw(yellowDot, new Microsoft.Xna.Framework.Rectangle((int)(point.Y),(int)(480+point.X), 2, 2), Microsoft.Xna.Framework.Color.White);
-                    }
-                }
+                
             }
             spriteBatch.End();
 

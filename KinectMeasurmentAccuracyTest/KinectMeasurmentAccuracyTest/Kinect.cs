@@ -16,13 +16,13 @@ namespace KinectMeasurmentAccuracyTest
         Texture2D depthImg, colorImg;
         Texture2D lastDepth, lastColor;
         private GraphicsDevice GraphicsDevice;
-        private int[] redLineDist;
+        private int[,] captureDistances;
         private int[] objDepths;
         int redLineY = 125;
 
         public Kinect(GraphicsDevice GraphicsDevice)
         {
-            redLineDist = new int[320];
+            captureDistances = new int[240,320];
             objDepths = new int[320];
             this.GraphicsDevice = GraphicsDevice;
             kinect = new Runtime();
@@ -61,9 +61,10 @@ namespace KinectMeasurmentAccuracyTest
                     else
                     {
                         byte intensity = (byte)255;
-                        redLineDist[x] = distance;
+                        
                         DepthColor[y * p.Width + x] = new Color(intensity, 0, 0);
                     }
+                    captureDistances[y, x] = distance;
                 }
             }
             depthImg.SetData(DepthColor);
@@ -164,29 +165,32 @@ namespace KinectMeasurmentAccuracyTest
             kinect.Uninitialize();
         }
 
-        public Vector2[] Capture()
+        public Vector3[,] Capture()
         {
             lastDepth = depthImg;
             lastColor = colorImg;
-            Vector2[] redLinePoints = getObjectWidth();
+            Vector3[,] redLinePoints = calculatePoints();
             return redLinePoints;
         }
 
 
-        public Vector2[] getObjectWidth()
+        public Vector3[,] calculatePoints()
         {
-            Vector2[] depths = new Vector2[320];
+            Vector3[,] depths = new Vector3[240,320];
 
-            int centralDist = redLineDist[redLineDist.Length / 2];
+            int centralDist = captureDistances[120, 160];
 
             //get pixel resolution using the formula [resolution = 374/80096x^-0.953]
-            double resolution = 374 / (80096 * (Math.Pow(centralDist, -0.953)));
-
-            for(int i=0; i<redLineDist.Length;i++)
+            double resolution = 374 / (double)(80096 * (Math.Pow(centralDist, -0.953)));
+            for (int j = 0; j < captureDistances.GetLength(0); j++)
             {
-                float xComp = (float)(i*resolution);
-                float yComp= (float)redLineDist[i];
-                depths[i] = new Vector2(xComp, yComp);
+                for (int i = 0; i < captureDistances.GetLength(1); i++)
+                {
+                    float xComp = (float)(i * resolution);
+                    float yComp = (float)captureDistances[j, i];
+                    float zComp = (float)(j*resolution);
+                    depths[j,i] = new Vector3(xComp, yComp, zComp);
+                }
             }
             
             return depths;
