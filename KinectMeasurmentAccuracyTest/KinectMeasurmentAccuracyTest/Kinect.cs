@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
+
 using Microsoft.Research.Kinect.Nui;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -26,8 +28,8 @@ namespace KinectMeasurmentAccuracyTest
             objDepths = new int[320];
             this.GraphicsDevice = GraphicsDevice;
             kinect = new Runtime();
-            kinect.Initialize(RuntimeOptions.UseDepth | RuntimeOptions.UseColor);
-            kinect.DepthStream.Open(ImageStreamType.Depth, 2, ImageResolution.Resolution320x240, ImageType.Depth);
+            kinect.Initialize(RuntimeOptions.UseDepthAndPlayerIndex | RuntimeOptions.UseColor | RuntimeOptions.UseSkeletalTracking);
+            kinect.DepthStream.Open(ImageStreamType.Depth, 2, ImageResolution.Resolution320x240, ImageType.DepthAndPlayerIndex);
             kinect.DepthFrameReady += new EventHandler<ImageFrameReadyEventArgs>(DepthFrameReady);
 
             kinect.VideoStream.Open(ImageStreamType.Video, 2, ImageResolution.Resolution640x480, ImageType.Color);
@@ -38,6 +40,8 @@ namespace KinectMeasurmentAccuracyTest
         {
             PlanarImage p = e.ImageFrame.Image;
             Color[] DepthColor = new Color[p.Height * p.Width];
+
+            int[] playerIndex = new int[p.Height * p.Width];
 
             float maxDist = 4000;
             float minDist = 850;
@@ -51,19 +55,25 @@ namespace KinectMeasurmentAccuracyTest
             {
                 for (int x = 0; x < p.Width; x++, index += 2)
                 {
+                    
+
                     int n = (y * p.Width + x) * 2;
-                    int distance = (p.Bits[n + 0] | p.Bits[n + 1] << 8);
-                    if (y != redLineY)
+                    
+                    playerIndex[y * p.Width + x] = (int)(p.Bits[n] & 7); ;
+                    
+                    int distance = (p.Bits[n + 0] >>3 | p.Bits[n + 1] << 5);
+                    
+                    byte intensity = (byte)(255 - (255 * Math.Max(distance - minDist, 0) / (distOffset)));
+
+                    if (playerIndex[y * p.Width + x] > 0)
                     {
-                        byte intensity = (byte)(255 - (255 * Math.Max(distance - minDist, 0) / (distOffset)));
                         DepthColor[y * p.Width + x] = new Color(intensity, intensity, intensity);
                     }
                     else
                     {
-                        byte intensity = (byte)255;
-                        
-                        DepthColor[y * p.Width + x] = new Color(intensity, 0, 0);
+                        DepthColor[y * p.Width + x] = new Color(0, 0, 0);
                     }
+                        
                     captureDistances[y, x] = distance;
                 }
             }
@@ -165,12 +175,20 @@ namespace KinectMeasurmentAccuracyTest
             kinect.Uninitialize();
         }
 
-        public Vector3[,] Capture()
+        /*public Vector3[,] Capture()
         {
             lastDepth = depthImg;
             lastColor = colorImg;
-            Vector3[,] redLinePoints = calculatePoints();
+            //Vector3[,] redLinePoints = calculatePoints();
             return redLinePoints;
+        }*/
+
+        public Texture2D Capture()
+        {
+            lastDepth = depthImg;
+            lastColor = colorImg;
+            //Vector3[,] redLinePoints = calculatePoints();
+            return depthImg;
         }
 
 
@@ -182,7 +200,7 @@ namespace KinectMeasurmentAccuracyTest
 
             //get pixel resolution using the formula [resolution = 374/80096x^-0.953]
             double resolution = 374 / (double)(80096 * (Math.Pow(centralDist, -0.953)));
-            for (int j = 0; j < captureDistances.GetLength(0); j++)
+            /*for (int j = 0; j < captureDistances.GetLength(0); j++)
             {
                 for (int i = 0; i < captureDistances.GetLength(1); i++)
                 {
@@ -191,7 +209,7 @@ namespace KinectMeasurmentAccuracyTest
                     float zComp = (float)(j*resolution);
                     depths[j,i] = new Vector3(xComp, yComp, zComp);
                 }
-            }
+            }*/
             
             return depths;
         }

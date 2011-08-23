@@ -50,6 +50,15 @@
       <Output>obj\x86\Debug\box_0.xml</Output>
       <Time>2011-08-15T14:01:06.7517877+01:00</Time>
     </Item>
+    <Item>
+      <Source>TerrainEffect.fx</Source>
+      <Name>TerrainEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Ewen\Documents\Visual Studio 2010\Projects\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\KinectMeasurmentAccuracyTest\bin\x86\Debug\Content\TerrainEffect.xnb</Output>
+      <Time>2011-08-20T17:00:15.0316317+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

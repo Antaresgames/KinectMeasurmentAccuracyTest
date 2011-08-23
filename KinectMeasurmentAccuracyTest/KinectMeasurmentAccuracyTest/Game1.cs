@@ -22,6 +22,8 @@ namespace KinectMeasurmentAccuracyTest
         SpriteBatch spriteBatch;
         Kinect kinect;
         Vector3[,] redLinePoints;
+        Texture2D heightmap;
+        Terrain terrain;
 
         Texture2D yellowDot;
         Camera2 camera;
@@ -92,16 +94,18 @@ namespace KinectMeasurmentAccuracyTest
                 kinect.CameraReset();
             if (Keyboard.GetState().IsKeyDown(Keys.C) && !Keyboard.GetState().Equals(prevState))
             {
-                Components.Clear();
-                redLinePoints = kinect.Capture();
-                foreach (Vector3 point in redLinePoints)
+                //Components.Clear();
+                heightmap = kinect.Capture();
+                terrain = new Terrain(this, heightmap, camera);
+                Components.Add(terrain);
+                /*foreach (Vector3 point in redLinePoints)
                 {
                     if (point.Y < 1700 && point.Y != 0)
                     {
                         camera.LookAt(point);
                         Components.Add(new GameComponent1(this, point, camera));
                     }
-                }
+                }*/
             }
             camera.Update(gameTime);
             // TODO: Add your update logic here
