@@ -65,13 +65,13 @@ namespace KinectMeasurmentAccuracyTest
                     
                     byte intensity = (byte)(255 - (255 * Math.Max(distance - minDist, 0) / (distOffset)));
 
-                    if (playerIndex[y * p.Width + x] > 0)
+                    if (playerIndex[y * p.Width + x] > 0)//if its a player
                     {
                         DepthColor[y * p.Width + x] = new Color(intensity, intensity, intensity);
                     }
                     else
                     {
-                        DepthColor[y * p.Width + x] = new Color(0, 0, 0);
+                        DepthColor[y * p.Width + x] = new Color(0, 0, 0);//otherwise, 
                     }
                         
                     captureDistances[y, x] = distance;

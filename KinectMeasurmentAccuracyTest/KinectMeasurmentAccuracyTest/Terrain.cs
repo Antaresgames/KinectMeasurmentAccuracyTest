@@ -116,7 +116,7 @@ namespace KinectMeasurmentAccuracyTest
             for (int x = 0; x < terrainWidth; x++)
                 for (int y = 0; y < terrainLength; y++){
                     heightData[x, y] = (heightData[x, y] - minimumHeight) / (maximumHeight - minimumHeight) * 70.0f;
-                    //heightData[x, y] *= 10; // exaduarate terrain heights
+                    heightData[x, y] *= 2; // exaduarate terrain heights
                 }
         }
 
@@ -203,10 +203,10 @@ namespace KinectMeasurmentAccuracyTest
         public override void Draw(GameTime gameTime)
         {
             float time = (float)gameTime.TotalGameTime.TotalMilliseconds / 100.0f;
-            //RasterizerState rs = new RasterizerState();
-            //rs.CullMode = CullMode.None;
-            //rs.FillMode = FillMode.WireFrame;
-            //device.RasterizerState = rs;
+            RasterizerState rs = new RasterizerState();
+            rs.CullMode = CullMode.None;
+            rs.FillMode = FillMode.WireFrame;
+            device.RasterizerState = rs;
 
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);

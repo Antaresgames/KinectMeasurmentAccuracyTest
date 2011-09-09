@@ -92,19 +92,7 @@ namespace KinectMeasurmentAccuracyTest
                 acceleratingFor -= gameTime.ElapsedGameTime.TotalSeconds;
                 accelerate(acceleratingFor);
             }
-
-            if (keyboard.IsKeyDown(Keys.X) && acceleratingFor > -6)
-            {//accelerate is trigger is pressed and spaceship < max speed.
-                acceleratingFor -= gameTime.ElapsedGameTime.TotalSeconds;
-                accelerate(-acceleratingFor);
-            }
-            else if (acceleratingFor < 0) //decelerate if W no longer pressed
-            {
-                acceleratingFor -= gameTime.ElapsedGameTime.TotalSeconds;
-                accelerate(acceleratingFor);
-            }
-
-            if (keyboard.IsKeyDown(Keys.C) && acceleratingFor > -6)
+            else if (keyboard.IsKeyDown(Keys.X) && acceleratingFor > -6)
             {//accelerate is trigger is pressed and spaceship < max speed.
                 acceleratingFor -= gameTime.ElapsedGameTime.TotalSeconds;
                 accelerate(acceleratingFor);
@@ -114,6 +102,8 @@ namespace KinectMeasurmentAccuracyTest
                 acceleratingFor += gameTime.ElapsedGameTime.TotalSeconds;
                 accelerate(acceleratingFor);
             }
+
+           
             #endregion
 
             
